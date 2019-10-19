@@ -61,10 +61,13 @@ export default class MyCamera extends React.Component {
                 }}>
                 <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={{ width: 60, height: 60, position: 'absolute', bottom: 50, 
-                    borderRadius: 30, backgroundColor: "#fff", display: "flex" }}
-                onPress={this.snapPhoto.bind(this)} />
+              <View>
+                <TouchableOpacity
+                  style={{ width: 60, height: 60, position: 'absolute', bottom: 35,
+                        borderRadius: 30, backgroundColor: "#fff"
+                    }}
+                  onPress={this.snapPhoto.bind(this)} />
+              </View>
             </View>
           </Camera>
         </View>
