@@ -21,9 +21,14 @@ export default function HomeScreen() {
         {text}
       </Text>
 
-      <MyCamera />
+      <MyCamera >
+      </MyCamera>
 
+
+
+      {/* 
 {/* 
+      {/* 
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
@@ -44,13 +49,13 @@ export default function HomeScreen() {
 
       </ScrollView> */}
 
-    </View>
+    </View >
   );
 }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
+// HomeScreen.navigationOptions = {
+//   header: null,
+// };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
