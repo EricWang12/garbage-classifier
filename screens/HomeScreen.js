@@ -10,9 +10,16 @@ import {
   View,
 } from 'react-native';
 
+
+import { RNCamera, FaceDetector } from 'react-native-camera';
+
+
 import { MonoText } from '../components/StyledText';
 
 export default function HomeScreen() {
+
+  let text = "This is a garbage classifer";
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -27,9 +34,19 @@ export default function HomeScreen() {
             }
             style={styles.welcomeImage}
           />
+
+
+          <Text style={styles.baseText}>
+            {text}
+          </Text>
+
+
         </View>
 
-        <View style={styles.getStartedContainer}>
+
+
+
+        {/* <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
 
           <Text style={styles.getStartedText}>Get started by opening</Text>
@@ -50,10 +67,10 @@ export default function HomeScreen() {
               Help, it didn’t automatically reload!
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
 
-      <View style={styles.tabBarInfoContainer}>
+      {/* <View style={styles.tabBarInfoContainer}>
         <Text style={styles.tabBarInfoText}>
           This is a tab bar. You can edit it in:
         </Text>
@@ -64,7 +81,7 @@ export default function HomeScreen() {
             navigation/MainTabNavigator.js
           </MonoText>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }
