@@ -18,14 +18,12 @@ export default class MyCamera extends React.Component {
   async snapPhoto() {
     if (this.camera) {
       const options = {
-        quality: 1, base64: true, fixOrientation: true,
+        quality: 0.5, base64: true, fixOrientation: true,
         exif: false, skipProcessing: true
       };
       await this.camera.takePictureAsync(options).then(photo => {
         // photo.exif.Orientation = 1;
         console.log(photo);
-
-
       });
     }
   }
@@ -64,7 +62,8 @@ export default class MyCamera extends React.Component {
                 <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff" }}
+                style={{ width: 60, height: 60, position: 'absolute', bottom: 50, 
+                    borderRadius: 30, backgroundColor: "#fff", display: "flex" }}
                 onPress={this.snapPhoto.bind(this)} />
             </View>
           </Camera>
