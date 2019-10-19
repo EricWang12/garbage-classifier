@@ -21,9 +21,19 @@ export default function HomeScreen() {
         {text}
       </Text>
 
-      <MyCamera />
+      <MyCamera >
+      </MyCamera>
 
+      <TouchableOpacity
+        style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: "#000" }}
+        onPress={() => snap()} >
+      </TouchableOpacity>
+
+
+
+      {/* 
 {/* 
+      {/* 
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
@@ -44,13 +54,13 @@ export default function HomeScreen() {
 
       </ScrollView> */}
 
-    </View>
+    </View >
   );
 }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
+// HomeScreen.navigationOptions = {
+//   header: null,
+// };
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
