@@ -1,4 +1,4 @@
-# Garbage Classifier
+# SnapSort
 This app aims to help people save ladnfill space and preserve our resources for future generations by practicing thoughtful recycling and sustainability habits. It helps users make sure a right garbage classification conveniently.
 
 It also shows some fun facts about the trash object to promote users learn more about garbage classification. Moreover, the app tracks the user habbits and give them a monthly report about their garbage classfication history.
