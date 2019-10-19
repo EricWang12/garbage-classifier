@@ -7,6 +7,7 @@ export default class MyCamera extends React.Component {
   state = {
     hasCameraPermission: null,
     type: Camera.Constants.Type.back,
+    url: "http://localhost:3000/upload"
   };
 
   async componentDidMount() {
@@ -14,10 +15,18 @@ export default class MyCamera extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
-  handlePhoto = async () => {
-    if (this.cameraRef) {
-      let photo = await this.cameraRef.current.takePictureAsync();
-      console.log(photo);
+  async snapPhoto() {
+    if (this.camera) {
+      const options = {
+        quality: 1, base64: true, fixOrientation: true,
+        exif: false, skipProcessing: true
+      };
+      await this.camera.takePictureAsync(options).then(photo => {
+        // photo.exif.Orientation = 1;
+        console.log(photo);
+
+
+      });
     }
   }
 
@@ -30,7 +39,8 @@ export default class MyCamera extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
+          <Camera style={{ flex: 1 }} type={this.state.type} ref={(ref) => { this.camera = ref }}
+          >
             <View
               style={{
                 flex: 1,
@@ -55,7 +65,7 @@ export default class MyCamera extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff" }}
-                onPress={this.handlePhoto} />
+                onPress={this.snapPhoto.bind(this)} />
             </View>
           </Camera>
         </View>
