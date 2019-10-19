@@ -7,7 +7,7 @@ import {
 
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
+import StatsScreen from "../screens/StatsScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 
 const config = Platform.select({
@@ -36,7 +36,7 @@ HomeStack.path = "";
 
 const StatsStack = createStackNavigator(
   {
-    Links: LinksScreen
+    Links: StatsScreen
   },
   config
 );
