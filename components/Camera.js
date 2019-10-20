@@ -68,7 +68,7 @@ export default class MyCamera extends React.Component {
         // photo.exif.Orientation = 1;
         console.log(photo);
         this.showPopUpModel();
-        axios.post('https://localhost:3000/imageUpload', {
+        axios.post('localhost:3000/imageUpload', {
           photo
         })
         .then((res) => {
