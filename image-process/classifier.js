@@ -141,11 +141,11 @@ let compost=["fruit",
             "pickles",
             "feather",
             "fur",
-            "bone"];
+            "bone",
+            "food"];
 
 
 let classification=["recyclable","special","compost","trash"];
-console.log(classifier(["Input device","Mouse","Electronic device","Technology","Computer component","Peripheral","Computer accessory","Computer"]));
 //classification=["recyclable","special","compost","trash"];
 
 /*
@@ -162,8 +162,8 @@ function mostlikely(arr){
        tmp=arr[i];
      }
    }
-   console.log(arr.indexOf(tmp));
-   console.log(classification[arr.indexOf(tmp)]);
+  //  console.log(arr.indexOf(tmp));
+  //  console.log(classification[arr.indexOf(tmp)]);
    return classification[arr.indexOf(tmp)];
 }
 
@@ -172,7 +172,7 @@ function mostlikely(arr){
 @paramL the labels of that object
 @return the classification of that label
 */
-function classifier(testdatas){
+function classify(testdatas){
 
   var possibilities=[0,0,0,0];
   //use the label in test dates to compare to the classification, and calculate the possibility of each classification
@@ -180,13 +180,13 @@ function classifier(testdatas){
   for (var index1 in testdatas){
     var tmp = testdatas[index1].split(" ");
     for (var index2 in tmp){
-      if (recyclable.indexOf(tmp[index2])>-1){
+      if (recyclable.indexOf(tmp[index2].toLowerCase())>-1){
         possibilities[0]+=(testdatas.length-index1);
       }
-      if (special.indexOf(tmp[index2])>-1){
+      if (special.indexOf(tmp[index2].toLowerCase())>-1){
         possibilities[1]+=(testdatas.length-index1);
       }
-      if (compost.indexOf(tmp[index2])>-1){
+      if (compost.indexOf(tmp[index2].toLowerCase())>-1){
         possibilities[2]+=(testdatas.length-index1);
       }
     }
@@ -196,5 +196,5 @@ function classifier(testdatas){
 }
 
 module.exports = {
-  classifier
+  classify
 }

@@ -1,4 +1,4 @@
-const {classifier }= require('./playground.js')
+const {classify }= require('./classifier.js')
 
 const express = require('express')
 const multer = require('multer')
@@ -34,9 +34,6 @@ const port = 3000
 
 app.use(express.static('public'));
 
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
 app.post('/upload', upload.single('photo'), async (req, res) => {
 
     var imageFile = fs.readFileSync(fileLocation + '/' + req.file.originalname);
@@ -49,8 +46,9 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
     var objects = objectResults.localizedObjectAnnotations;
 
     var returnedLabels = labelResults.labelAnnotations;
-    console.log(classifier(returnedLabels.map(a => a.description)));
-    res.send(returnedLabels.map(a => a.description));
+    //console.log(returnedLabels.map(a => a.description));
+
+    res.send(returnedLabels.map(a => a.description) + '<br>' + classify(returnedLabels.map(a => a.description)));
     //res.send(returnedLabels);
 
 }
