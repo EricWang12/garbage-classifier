@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   display: {
     color: recycleableColor,
     fontFamily: 'nunito-blk',
-    fontSize: 36,
+    fontSize: 60,
     margin: 30,
     marginTop: 50
   }

@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
+
+:root {
+    --recyclable: #3EE084;
+    --compost: #FEBA02;
+    --hazardous: #FA876E;
+    --trash: #303030;
+}
+
+#big-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    background-color: var(--trash);
+    width: 100vw;
+    height: 100vh;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#photo-wrapper {
+    width: 90%;
+    height: 75%;
+    border-color: var(--recyclable);
+    border-width: 9px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.display {
+    color: white;
+    font-weight: bold;
+    font-size: 30pt;
+}
+
+.icon {
+    color: white;
+    font-size: 72pt;
+}
+
+label {
+    border: 0;
+    padding: 10px 20px;
+    background-color: var(--recyclable);
+    border-radius: 5px;
+    font-family: 'nunito';
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+}
+
+.horizFlex {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.horizFlex span {
+    font-size: 30px;
+    color: white;
+}
+
+input{
+    display: none;
+}
