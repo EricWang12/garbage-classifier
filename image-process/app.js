@@ -45,7 +45,7 @@ const upload = multer({ storage: storage });
 //   db.close();
 // });
 
-mongoInit();
+//mongoInit();
 
 const app = express()
 const port = 8080
