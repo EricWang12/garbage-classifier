@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Upload Images to Server</title>
     <script type="text/javascript" src="app.js"></script>
     <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
 </head>
+
 <body>
-    <h1>Upload Image</h1>
- 
     <form action="/upload" method="post" enctype="multipart/form-data">
-            <input type="file" accept="image/*" name="photo" >
-            <input type="submit" value="upload">
+        <div id="big-wrapper">
+            <div id="photo-wrapper" for="file-upload">
+                <i class="fas fa-image icon"></i>
+                <div class="display">Select Image</div>
+            </div>
+            <div class="horizFlex">
+                <label for="file-post" style="display: inline;">Upload</label>
+                <span>OR</span>
+                <label for="file-post" style="display: inline;">Login</label>
+            </div>
+        </div>
+
+
+        <input id="file-upload" type="file" accept="image/*" name="photo">
+        <input id='file-post' type="submit" value="upload">
     </form>
 </body>
+
 </html>
