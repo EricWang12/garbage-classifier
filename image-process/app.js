@@ -3,16 +3,16 @@
 const express = require('express')
 const multer = require('multer')
 const crypto = require('crypto')
+const fs = require('fs');
+const vision = require('@google-cloud/vision');
+// Creates a client
 
-var fs = require('fs');
-var imageFile = fs.readFileSync('./mouse.png');
+const client = new vision.ImageAnnotatorClient({
+    keyFilename: 'APIKey.json'
+});
 
 // Convert the image data to a Buffer and base64 encode it.
-var encoded = Buffer.from(imageFile).toString('base64');
 
-console.log(encoded);
-
-var pic = new Buffer(encoded, 'base64');
 
 const fileLocation =  __dirname + '/uploads/images';
 
@@ -39,14 +39,19 @@ app.get('/', (req, res) => res.send('Hello World!'))
 
 app.post('/upload', upload.single('photo'), async (req, res) => {
 
-    var returnedLabels = await detectLabels(pic);
+    var imageFile = fs.readFileSync(fileLocation + '/' + req.file.originalname);
+    var encoded = Buffer.from(imageFile).toString('base64');
+    //console.log(encoded);
+
+    var pic = new Buffer.from(encoded, 'base64');
+    var [labelResults] = await client.labelDetection(pic);
+    var [objectResults] = await client.objectLocalization(pic);
+    var objects = objectResults.localizedObjectAnnotations;
+
+    var returnedLabels = labelResults.labelAnnotations;
     res.send(returnedLabels.map(a => a.description));
     //res.send(returnedLabels);
 
-    // if(req.file) {
-    //     res.json(req.file);
-    // }
-    // else throw 'error';
 }
 );
 
@@ -67,7 +72,4 @@ async function detectLabels(fileName) {
     const [result] = await client.labelDetection(fileName);
     const labels = result.labelAnnotations;
     return labels;
-    // console.log('Labels:');
-    // labels.forEach(label => console.log(label.description));
-    // [END vision_label_detection]
 }
