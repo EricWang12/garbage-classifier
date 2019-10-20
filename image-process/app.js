@@ -109,11 +109,11 @@ app.post('/imageUpload', async (req, res) => {
 app.post('/confirmGarbage', async (req, res) => {
   let category = req.body.category;
   
-  let count = await addOne(category);
-  console.log(count);
+  let totalCount = await addOne(category);
+  console.log(totalCount);
   let obj = {
-    Count : count,
-    Time : new Date()
+    count : totalCount,
+    time : new Date()
   }
   res.json(obj);
 
