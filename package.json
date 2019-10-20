@@ -12,6 +12,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@ant-design/react-native": "^3.2.0",
     "@expo/samples": "~3.0.3",
     "@expo/vector-icons": "^10.0.3",
     "@google-cloud/vision": "^1.5.0",
