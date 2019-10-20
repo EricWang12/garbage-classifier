@@ -45,7 +45,7 @@ const upload = multer({ storage: storage });
 //   db.close();
 // });
 
-
+//mongoInit();
 
 const app = express()
 const port = 8080
@@ -109,10 +109,13 @@ app.post('/imageUpload', async (req, res) => {
 app.post('/confirmGarbage', async (req, res) => {
   let category = req.body.category;
   
-  let totalCount = await addOne(category);
-  console.log(totalCount);
+  let result = await addOne(category);
+  console.log(JSON.stringify(result));
   let obj = {
-    count : totalCount,
+    
+    counts:result,
+
+    
     time : new Date()
   }
   res.json(obj);
@@ -129,15 +132,17 @@ function mongoInit(){
       console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
   }
   console.log('Connected...');
-  const collection = client.db("Cluster0").collection("database");
-  var target = { address: /^/ };
-  var myobj = {$set: {count : 0}} ;
-    collection.updateMany(target , myobj, function(err, res) {
-    if (err) throw err;
-    //console.log("Number of documents inserted: " + res.insertedCount);
-    client.close();
-    });
-    // perform actions on the collection object
+  //const collection = client.db("Cluster0").collection("database");
+  client.runCommand({ killAllSessions : []});
+  client.killAllSessions
+  // var target = { address: /^/ };
+  // var myobj = {$set: {count : 0}} ;
+  //   collection.updateMany(target , myobj, function(err, res) {
+  //   if (err) throw err;
+  //   //console.log("Number of documents inserted: " + res.insertedCount);
+  //   client.close();
+  //   });
+  //   // perform actions on the collection object
 
   });
 }
@@ -158,8 +163,8 @@ async function addOne(category){
     collection.updateOne({name : category}, newvalues , function(err, res) {
     });
   });
-  let result =  await  collection.findOne({"name" : category})
-  console.log(result.Count );
-  return result.Count ;
+  var result =  await collection.find({},{ projection: { _id: 0 ,name: 1, Count : 1 } }).toArray();
+  client.close();
+  return result ;
 }
 
