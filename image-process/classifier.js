@@ -145,7 +145,7 @@ let compost=["fruit",
             "food"];
 
 
-let classification=["recyclable","special","compost","trash"];
+let classification=["recyclable","hazardous","compost","trash"];
 //classification=["recyclable","special","compost","trash"];
 
 /*
