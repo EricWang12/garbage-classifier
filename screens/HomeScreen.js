@@ -14,15 +14,22 @@ import { MonoText } from "../components/StyledText";
 import MyCamera from "../components/Camera";
 
 export default function HomeScreen() {
+
+
   return (
     <View style={styles.container}>
-      <MyCamera/>
+      <MyCamera />
     </View>
   );
 }
 
+
 HomeScreen.navigationOptions = {
   header: null
+};
+
+function handleRes(res) {
+  console.log(res);
 };
 
 function DevelopmentModeNotice() {
@@ -47,6 +54,7 @@ function DevelopmentModeNotice() {
     );
   }
 }
+
 
 function handleLearnMorePress() {
   WebBrowser.openBrowserAsync(

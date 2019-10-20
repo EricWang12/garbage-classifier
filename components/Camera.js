@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
@@ -19,7 +19,7 @@ export default class MyCamera extends React.Component {
   };
 
   showActionSheet = () => {
-    
+
     this.ActionSheet.show()
   }
 
@@ -50,7 +50,12 @@ export default class MyCamera extends React.Component {
   };
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
+  }
+
+  handleRes(res) {
+    console.log(res);
+    // this.props.onHandleRes(res);
   }
 
   async componentDidMount() {
@@ -66,28 +71,27 @@ export default class MyCamera extends React.Component {
     );
   }
 
-base64ToBlob(base64, mime) 
-{
+  base64ToBlob(base64, mime) {
     mime = mime || '';
     var sliceSize = 1024;
     var byteChars = window.atob(base64);
     var byteArrays = [];
 
     for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
-        var slice = byteChars.slice(offset, offset + sliceSize);
+      var slice = byteChars.slice(offset, offset + sliceSize);
 
-        var byteNumbers = new Array(slice.length);
-        for (var i = 0; i < slice.length; i++) {
-            byteNumbers[i] = slice.charCodeAt(i);
-        }
+      var byteNumbers = new Array(slice.length);
+      for (var i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
 
-        var byteArray = new Uint8Array(byteNumbers);
+      var byteArray = new Uint8Array(byteNumbers);
 
-        byteArrays.push(byteArray);
+      byteArrays.push(byteArray);
     }
 
-    return new Blob(byteArrays, {type: mime});
-}
+    return new Blob(byteArrays, { type: mime });
+  }
 
   async snapPhoto() {
     if (this.camera) {
@@ -97,25 +101,26 @@ base64ToBlob(base64, mime)
       };
       await this.camera.takePictureAsync(options).then(photo => {
         // photo.exif.Orientation = 1;
-        console.log(photo); 
+        // console.log(photo);
 
         axios.post('https://garbage-classi.appspot.com/imageUpload', {
           "base64": photo.base64
         })
-        .then((res) => {
-          console.log(res);
-          this.setState({
-            name: res.data.name,
-            category: res.data.category
+          .then((res) => {
+            // console.log(res);
+            this.setState({
+              name: res.data.name,
+              category: res.data.category
+            });
+            this.handleRes(res);
+            // console.log(this.state.name);
+            // console.log(this.state.category);
+            // Do our pop up modal here
           })
-          console.log(this.state.name);
-          console.log(this.state.category);
-          // Do our pop up modal here
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        
+          .catch((error) => {
+            console.error(error);
+          })
+
         return true;
       });
     }
@@ -131,45 +136,45 @@ base64ToBlob(base64, mime)
     } else {
       return (
         <>
-        <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type} ref={(ref) => { this.camera = ref }}
-          >
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: 'transparent',
-                flexDirection: 'row',
-              }}>
-              <TouchableOpacity
+          <View style={{ flex: 1 }}>
+            <Camera style={{ flex: 1 }} type={this.state.type} ref={(ref) => { this.camera = ref }}
+            >
+              <View
                 style={{
-                  flex: 0.1,
-                  alignSelf: 'flex-end',
-                  alignItems: 'center',
-                }}
-                onPress={() => {
-                  this.setState({
-                    type:
-                      this.state.type === Camera.Constants.Type.back
-                        ? Camera.Constants.Type.front
-                        : Camera.Constants.Type.back,
-                  });
+                  flex: 1,
+                  backgroundColor: 'transparent',
+                  flexDirection: 'row',
                 }}>
-                <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-              </TouchableOpacity>
-              <View style={{
-                width: '100%', height: 60, position: 'absolute', bottom: 35,
-                flex: 1, justifyContent: 'center', flexDirection: 'row'
-              }}>
                 <TouchableOpacity
                   style={{
-                    width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff", margin: 'auto'
+                    flex: 0.1,
+                    alignSelf: 'flex-end',
+                    alignItems: 'center',
                   }}
-                  onPress={this.snapPhoto.bind(this)} />
+                  onPress={() => {
+                    this.setState({
+                      type:
+                        this.state.type === Camera.Constants.Type.back
+                          ? Camera.Constants.Type.front
+                          : Camera.Constants.Type.back,
+                    });
+                  }}>
+                  <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
+                </TouchableOpacity>
+                <View style={{
+                  width: '100%', height: 60, position: 'absolute', bottom: 35,
+                  flex: 1, justifyContent: 'center', flexDirection: 'row'
+                }}>
+                  <TouchableOpacity
+                    style={{
+                      width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff", margin: 'auto'
+                    }}
+                    onPress={this.snapPhoto.bind(this)} />
+                </View>
               </View>
-            </View>
-            <Action name={this.state.name} category={this.state.category}/>
-          </Camera>
-        </View>
+              <Action name={this.state.name} category={this.state.category} />
+            </Camera>
+          </View>
         </>
       );
     }
