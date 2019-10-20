@@ -18,14 +18,22 @@ export default class LinksScreen extends React.Component {
 
     let param = props.navigation.state.params;
     this.setState({
-      counts: param
+      counts: param.res.count
     });
-    console.log(param);
+
+    this.state.counts = param.res.count;
+    console.log(this.state.counts)
+
+    // console.log(this.state.counts);
   }
+componentDidUpdate(){
+
+}
+
   render() {
     let counts = this.state.counts;
 
-    const data = [
+    let data = [
       { x: "recyclable", y: 5 },
       { x: "compost", y: 12 },
       { x: "hazardous", y: 2 },
@@ -46,8 +54,6 @@ export default class LinksScreen extends React.Component {
       // })
 
     })
-
-    console.log(data);
 
     return (
 
