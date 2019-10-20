@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
+import Action from './Action';
 
 const axios = require('axios');
 
 export default class MyCamera extends React.Component {
   state = {
+    name: "",
+    category: "",
     hasCameraPermission: null,
     modalText: 'There are currently no categories found for this item',
     visible: false,
@@ -14,6 +17,11 @@ export default class MyCamera extends React.Component {
     type: Camera.Constants.Type.back,
     url: "https://garbage-classi.appspot.com/imageUpload"
   };
+
+  showActionSheet = () => {
+    
+    this.ActionSheet.show()
+  }
 
   showModal = () => {
     this.setState({
@@ -42,7 +50,7 @@ export default class MyCamera extends React.Component {
   };
 
   setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
+    this.setState({modalVisible: visible});
   }
 
   async componentDidMount() {
@@ -89,32 +97,25 @@ base64ToBlob(base64, mime)
       };
       await this.camera.takePictureAsync(options).then(photo => {
         // photo.exif.Orientation = 1;
+        console.log(photo); 
 
-        console.log(photo);
-          
         axios.post('https://garbage-classi.appspot.com/imageUpload', {
           "base64": photo.base64
         })
-<<<<<<< HEAD
         .then((res) => {
-          console.log(`statusCode: ${res.statusCode}`);
           console.log(res);
+          this.setState({
+            name: res.data.name,
+            category: res.data.category
+          })
+          console.log(this.state.name);
+          console.log(this.state.category);
           // Do our pop up modal here
         })
         .catch((error) => {
           console.error(error);
         })
         
-=======
-          .then((res) => {
-            console.log(`statusCode: ${res.statusCode}`)
-            console.log(res)
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-
->>>>>>> ffbf499515a892d7a23319273c26e56d63fb17a8
         return true;
       });
     }
@@ -129,6 +130,7 @@ base64ToBlob(base64, mime)
       return <Text>No access to camera</Text>;
     } else {
       return (
+        <>
         <View style={{ flex: 1 }}>
           <Camera style={{ flex: 1 }} type={this.state.type} ref={(ref) => { this.camera = ref }}
           >
@@ -160,13 +162,15 @@ base64ToBlob(base64, mime)
               }}>
                 <TouchableOpacity
                   style={{
-                    width: 60, height: 60, borderRadius: 30, backgroundColor: "#3EE084", margin: 'auto'
+                    width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff", margin: 'auto'
                   }}
                   onPress={this.snapPhoto.bind(this)} />
               </View>
             </View>
+            <Action name={this.state.name} category={this.state.category}/>
           </Camera>
         </View>
+        </>
       );
     }
   }
