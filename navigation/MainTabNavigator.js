@@ -46,7 +46,7 @@ StatsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-stats" : "md-assessment"}
+      name={Platform.OS === "ios" ? "ios-stats" : "md-leaf"}
     />
   )
 };
