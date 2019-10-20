@@ -1,4 +1,4 @@
-//const {detectLabels }= require('./detect.js')
+const {classifier }= require('./playground.js')
 
 const express = require('express')
 const multer = require('multer')
@@ -49,6 +49,7 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
     var objects = objectResults.localizedObjectAnnotations;
 
     var returnedLabels = labelResults.labelAnnotations;
+    console.log(classifier(returnedLabels.map(a => a.description)));
     res.send(returnedLabels.map(a => a.description));
     //res.send(returnedLabels);
 
@@ -63,12 +64,12 @@ async function detectLabels(fileName) {
     // [START vision_label_detection]
     // Imports the Google Cloud client library
     const vision = require('@google-cloud/vision');
-  
+
     // Creates a client
     const client = new vision.ImageAnnotatorClient({
         keyFilename: 'APIKey.json'
     });
-  
+
     const [result] = await client.labelDetection(fileName);
     const labels = result.labelAnnotations;
     return labels;
