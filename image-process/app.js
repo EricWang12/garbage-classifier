@@ -109,10 +109,13 @@ app.post('/imageUpload', async (req, res) => {
 app.post('/confirmGarbage', async (req, res) => {
   let category = req.body.category;
   
-  let totalCount = await addOne(category);
-  console.log(totalCount);
+  let result = await addOne(category);
+  console.log(JSON.stringify(result));
   let obj = {
-    count : totalCount,
+    
+    counts:result,
+
+    
     time : new Date()
   }
   res.json(obj);
@@ -158,8 +161,7 @@ async function addOne(category){
     collection.updateOne({name : category}, newvalues , function(err, res) {
     });
   });
-  let result =  await  collection.findOne({"name" : category})
-  console.log(result.Count );
-  return result.Count ;
+  var result =  await collection.find({},{ projection: { _id: 0 ,name: 1, Count : 1 } }).toArray();
+  return result ;
 }
 
