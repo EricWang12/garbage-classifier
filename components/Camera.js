@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
@@ -42,7 +42,7 @@ export default class MyCamera extends React.Component {
   };
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
 
   async componentDidMount() {
@@ -95,6 +95,7 @@ base64ToBlob(base64, mime)
         axios.post('https://garbage-classi.appspot.com/imageUpload', {
           "base64": photo.base64
         })
+<<<<<<< HEAD
         .then((res) => {
           console.log(`statusCode: ${res.statusCode}`);
           console.log(res);
@@ -104,6 +105,16 @@ base64ToBlob(base64, mime)
           console.error(error);
         })
         
+=======
+          .then((res) => {
+            console.log(`statusCode: ${res.statusCode}`)
+            console.log(res)
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+
+>>>>>>> ffbf499515a892d7a23319273c26e56d63fb17a8
         return true;
       });
     }
@@ -118,7 +129,6 @@ base64ToBlob(base64, mime)
       return <Text>No access to camera</Text>;
     } else {
       return (
-        <>
         <View style={{ flex: 1 }}>
           <Camera style={{ flex: 1 }} type={this.state.type} ref={(ref) => { this.camera = ref }}
           >
@@ -150,14 +160,13 @@ base64ToBlob(base64, mime)
               }}>
                 <TouchableOpacity
                   style={{
-                    width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff", margin: 'auto'
+                    width: 60, height: 60, borderRadius: 30, backgroundColor: "#3EE084", margin: 'auto'
                   }}
                   onPress={this.snapPhoto.bind(this)} />
               </View>
             </View>
           </Camera>
         </View>
-        </>
       );
     }
   }
