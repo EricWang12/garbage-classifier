@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-=======
 import React, {Component} from 'react';
 import { Text, View, TouchableOpacity, Alert } from 'react-native';
->>>>>>> 50956f71ecf398d186dc8abced1ac7ca896a476b
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 
