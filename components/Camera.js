@@ -12,7 +12,7 @@ export default class MyCamera extends React.Component {
     visible: false,
     confirmLoading: false,
     type: Camera.Constants.Type.back,
-    url: "http://localhost:3000/upload"
+    url: "https://garbage-classi.appspot.com/imageUpload"
   };
 
   showModal = () => {
@@ -58,6 +58,29 @@ export default class MyCamera extends React.Component {
     );
   }
 
+base64ToBlob(base64, mime) 
+{
+    mime = mime || '';
+    var sliceSize = 1024;
+    var byteChars = window.atob(base64);
+    var byteArrays = [];
+
+    for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+        var slice = byteChars.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, {type: mime});
+}
+
   async snapPhoto() {
     if (this.camera) {
       const options = {
@@ -66,17 +89,19 @@ export default class MyCamera extends React.Component {
       };
       await this.camera.takePictureAsync(options).then(photo => {
         // photo.exif.Orientation = 1;
+
         console.log(photo);
-        // this.showPopUpModel();
-        axios.post('localhost:3000/image_upload', {
-          photo
+          
+        axios.post('https://garbage-classi.appspot.com/imageUpload', {
+          "base64": photo.base64
         })
         .then((res) => {
-          console.log(`statusCode: ${res.statusCode}`)
-          console.log(res)
+          console.log(`statusCode: ${res.statusCode}`);
+          console.log(res);
+          // Do our pop up modal here
         })
         .catch((error) => {
-          console.error(error)
+          console.error(error);
         })
         
         return true;
