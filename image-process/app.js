@@ -36,8 +36,8 @@ const app = express()
 const port = 8080
 
 app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '100mb'}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }));
 
 app.post('/upload', upload.single('photo'), async (req, res) => {
 
