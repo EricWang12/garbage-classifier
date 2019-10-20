@@ -65,8 +65,8 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
 }
 );
 
-UserRouter.route('/image_upload').post( async (req, res) => {
-    let encoded = req.base64;
+app.post('/imageUpload', async (req, res) => {
+    let encoded = req.body.base64;
     console.log(typeof(encoded));
     let pic = new Buffer.from(encoded, 'base64');
     let [labelResults] = await client.labelDetection(pic);
@@ -83,26 +83,11 @@ UserRouter.route('/image_upload').post( async (req, res) => {
     vertices.forEach(v => coords.push([v.x,v.y]));
 
     let obj = {
-      coordinates : this.coords,
-      name : a[0].description,
+      coordinates : coords,
+      name : returnedLabels[0].description,
       category : classify(returnedLabels.map(a => a.description))
     }
     res.json(obj);
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
-
-async function detectLabels(fileName) {
-    // [START vision_label_detection]
-    // Imports the Google Cloud client library
-    const vision = require('@google-cloud/vision');
-
-    // Creates a client
-    const client = new vision.ImageAnnotatorClient({
-        keyFilename: 'APIKey.json'
-    });
-
-    const [result] = await client.labelDetection(fileName);
-    const labels = result.labelAnnotations;
-    return labels;
-}
