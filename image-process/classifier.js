@@ -177,17 +177,17 @@ function classify(testdatas){
   var possibilities=[0,0,0,0];
   //use the label in test dates to compare to the classification, and calculate the possibility of each classification
   //based on the pirority and frenquency of the label.
-  for (var index1 in testdatas){
-    var tmp = testdatas[index1].split(" ");
-    for (var index2 in tmp){
-      if (recyclable.indexOf(tmp[index2].toLowerCase())>-1){
-        possibilities[0]+=(testdatas.length-index1);
+  for (var label in testdatas){
+    var tmp = testdatas[label].split(" ");
+    for (var subLabel in tmp){
+      if (recyclable.indexOf(tmp[subLabel].toLowerCase())>-1){
+        possibilities[0]+=(testdatas.length-label);
       }
-      if (special.indexOf(tmp[index2].toLowerCase())>-1){
-        possibilities[1]+=(testdatas.length-index1);
+      if (special.indexOf(tmp[subLabel].toLowerCase())>-1){
+        possibilities[1]+=(testdatas.length-label);
       }
-      if (compost.indexOf(tmp[index2].toLowerCase())>-1){
-        possibilities[2]+=(testdatas.length-index1);
+      if (compost.indexOf(tmp[subLabel].toLowerCase())>-1){
+        possibilities[2]+=(testdatas.length-label);
       }
     }
   }
