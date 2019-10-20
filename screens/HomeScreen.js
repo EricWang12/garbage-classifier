@@ -16,7 +16,7 @@ import MyCamera from "../components/Camera";
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <MyCamera />
+      <MyCamera/>
     </View>
   );
 }
