@@ -7,6 +7,7 @@ import Action from './Action';
 const axios = require('axios');
 
 export default class MyCamera extends React.Component {
+
   state = {
     name: "",
     category: "",
@@ -20,10 +21,11 @@ export default class MyCamera extends React.Component {
 
   showActionSheet = () => {
 
-    this.ActionSheet.show()
+    this.ActionSheet.show();
   }
 
   showModal = () => {
+
     this.setState({
       visible: true,
     });
@@ -55,6 +57,8 @@ export default class MyCamera extends React.Component {
 
   handleRes(res) {
     // console.log(res);
+        this.camera.resumePreview();
+
     this.props.onHandleRes(res);
   }
 
@@ -95,6 +99,7 @@ export default class MyCamera extends React.Component {
 
   async snapPhoto() {
     if (this.camera) {
+      this.camera.pausePreview();
       const options = {
         quality: 0.5, base64: true, fixOrientation: true,
         exif: false, skipProcessing: true
@@ -112,7 +117,14 @@ export default class MyCamera extends React.Component {
               name: res.data.name,
               category: res.data.category
             });
-            this.handleRes(res);
+            axios.post('https://garbage-classi.appspot.com/confirmGarbage',{
+              category:res.data.category
+            }).then(newRes=>{
+              this.handleRes({
+                category: res.data.category,  
+                count:newRes.data.count
+              });
+            });
             // console.log(this.state.name);
             // console.log(this.state.category);
             // Do our pop up modal here
@@ -145,7 +157,7 @@ export default class MyCamera extends React.Component {
                   backgroundColor: 'transparent',
                   flexDirection: 'row',
                 }}>
-                <TouchableOpacity
+                {/* <TouchableOpacity
                   style={{
                     flex: 0.1,
                     alignSelf: 'flex-end',
@@ -160,7 +172,7 @@ export default class MyCamera extends React.Component {
                     });
                   }}>
                   <Text style={{ fontSize: 18, marginBottom: 10, color: 'white' }}> Flip </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <View style={{
                   width: '100%', height: 60, position: 'absolute', bottom: 35,
                   flex: 1, justifyContent: 'center', flexDirection: 'row'
@@ -169,7 +181,9 @@ export default class MyCamera extends React.Component {
                     style={{
                       width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff", margin: 'auto'
                     }}
-                    onPress={this.snapPhoto.bind(this)} />
+                    onPress={
+                      this.snapPhoto.bind(this)
+                    } />
                 </View>
               </View>
               <Action name={this.state.name} category={this.state.category}/>

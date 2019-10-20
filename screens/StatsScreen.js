@@ -2,13 +2,6 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import { VictoryPie, VictoryChart, VictoryTheme } from "victory-native";
 
-const data = [
-  { x: "Recyclable", y: 5 },
-  { x: "Compost", y: 12 },
-  { x: "Hazardous", y: 2 },
-  { x: "Trash", y: 23 }
-];
-
 const recycleableColor = '#3EE084';
 const compostColor = '#FEBA02';
 const hazardousColor = '#FA876E';
@@ -24,7 +17,13 @@ export default class LinksScreen extends React.Component{
   }
   render(){
 
-  
+    const data = [
+      { x: "Recyclable", y: 5 },
+      { x: "Compost", y: 12 },
+      { x: "Hazardous", y: 2 },
+      { x: "Trash", y: 23 }
+    ];
+    
   return (
 
     <ScrollView style={styles.scroll}>
