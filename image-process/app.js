@@ -48,7 +48,13 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
     var returnedLabels = labelResults.labelAnnotations;
     //console.log(returnedLabels.map(a => a.description));
 
-    res.send(returnedLabels.map(a => a.description) + '<br>' + classify(returnedLabels.map(a => a.description)));
+    var coords = new Array();
+
+    //.get(0).map(v => `x: ${v.x}, y:${v.y}`);
+    var vertices = objects[0].boundingPoly.normalizedVertices;
+    vertices.forEach(v => coords.push([v.x,v.y]));
+
+    res.send(coords + '<br>' + returnedLabels.map(a => a.description) + '<br>' + classify(returnedLabels.map(a => a.description)));
     //res.send(returnedLabels);
 
 }
