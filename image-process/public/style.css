@@ -23,17 +23,6 @@
     align-items: center;
 }
 
-#photo-wrapper {
-    width: 90%;
-    height: 75%;
-    border-color: var(--recyclable);
-    border-width: 9px;
-    border-style: solid;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
 .display {
     color: white;
@@ -57,6 +46,18 @@ label {
     color: white;
 }
 
+#photo-wrapper {
+    width: 90%;
+    height: 75%;
+    border-color: var(--recyclable);
+    border-width: 9px;
+    border-style: solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .horizFlex {
     width: 100%;
     display: flex;
@@ -70,5 +71,5 @@ label {
 }
 
 input{
-    display: none;
+    /* display: none; */
 }

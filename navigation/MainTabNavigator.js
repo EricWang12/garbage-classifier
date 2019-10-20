@@ -19,8 +19,14 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen
   },
-  config
+  config,
+  onHandleRes = handleRes
+
 );
+
+function handleRes(res) {
+  console.log(res);
+};
 
 HomeStack.navigationOptions = {
   tabBarLabel: "Camera",

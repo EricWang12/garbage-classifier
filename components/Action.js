@@ -25,7 +25,7 @@ export default class Action extends React.Component {
         this.showActionSheet();
     }
     showActionSheet = () => {
-        this.ActionSheet.show()
+        this.ActionSheet.show();
       }
     render() {
         return (
