@@ -54,8 +54,8 @@ export default class MyCamera extends React.Component {
   }
 
   handleRes(res) {
-    console.log(res);
-    // this.props.onHandleRes(res);
+    // console.log(res);
+    this.props.onHandleRes(res);
   }
 
   async componentDidMount() {
@@ -172,7 +172,7 @@ export default class MyCamera extends React.Component {
                     onPress={this.snapPhoto.bind(this)} />
                 </View>
               </View>
-              <Action name={this.state.name} category={this.state.category} />
+              <Action name={this.state.name} category={this.state.category}/>
             </Camera>
           </View>
         </>

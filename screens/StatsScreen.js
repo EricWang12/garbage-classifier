@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, Button } from 'react-native';
 import { VictoryPie, VictoryChart, VictoryTheme } from "victory-native";
 
 const data = [
@@ -15,7 +15,16 @@ const hazardousColor = '#FA876E';
 const trashColor = '#ffffff';
 const colors = [recycleableColor, compostColor, hazardousColor, trashColor];
 
-export default function LinksScreen() {
+export default class LinksScreen extends React.Component{
+  constructor(props){
+    super(props);
+
+    let param = props.navigation.state.params;
+    console.log(param);
+  }
+  render(){
+
+  
   return (
 
     <ScrollView style={styles.scroll}>
@@ -29,8 +38,15 @@ export default function LinksScreen() {
         />
       </View>
 
+      {/* <Button onPress={handlePress}></Button> */}
+
     </ScrollView>
   );
+  }
+}
+
+const handlePress = (e)=>{
+  console.log(this.props);
 }
 
 LinksScreen.navigationOptions = {

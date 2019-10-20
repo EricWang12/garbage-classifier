@@ -13,24 +13,43 @@ import {
 import { MonoText } from "../components/StyledText";
 import MyCamera from "../components/Camera";
 
-export default function HomeScreen() {
+export default class HomeScreen extends  React.Component{
+  constructor(props){
+    super(props);
+  }
+  render(){
+    return (
+      <View style={styles.container}>
+        <MyCamera onHandleRes = {res=>{
+          //  this.props.onHandleRes(res);
+          this.props.navigation.navigate('Links',{
+            res
+          })
 
+          // console.log(this.props);
+        }}/>
+      </View>
+    );
+  }
 
-  return (
-    <View style={styles.container}>
-      <MyCamera />
-    </View>
-  );
+  // return (
+  //   <View style={styles.container}>
+  //     <MyCamera onHandleRes = {res=>{
+  //       console.log(this.props);
+  //     }}/>
+  //   </View>
+  // );
 }
-
+const handleRes = (res)=> {
+  console.log(this.props);
+//  this.props.onHandleRes(res);
+};
 
 HomeScreen.navigationOptions = {
   header: null
 };
 
-function handleRes(res) {
-  console.log(res);
-};
+
 
 function DevelopmentModeNotice() {
   if (__DEV__) {
