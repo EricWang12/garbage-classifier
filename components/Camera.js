@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
+// import { Icon } from '@ant-design/react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 
@@ -65,11 +66,15 @@ export default class MyCamera extends React.Component {
                 width: '100%', height: 60, position: 'absolute', bottom: 35,
                 flex: 1, justifyContent: 'center', flexDirection: 'row'
               }}>
+                
                 <TouchableOpacity
                   style={{
-                    width: 60, height: 60, borderRadius: 30, backgroundColor: "#fff", margin: 'auto'
+                    width: 60, height: 60, borderRadius: 30, backgroundColor: "#3EE084", margin: 'auto',
+                    justifyContent: 'center', flexDirection: 'row'
                   }}
-                  onPress={this.snapPhoto.bind(this)} />
+                  onPress={this.snapPhoto.bind(this)}>
+                  {/* <Icon type="camera" /> */}
+                </TouchableOpacity>
               </View>
             </View>
           </Camera>
