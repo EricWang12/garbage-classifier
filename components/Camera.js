@@ -121,8 +121,8 @@ export default class MyCamera extends React.Component {
               category:res.data.category
             }).then(newRes=>{
               this.handleRes({
-                category: res.data.category,  
-                count:newRes.data.count
+                // category: res.data.category,  
+                count:newRes.data.counts
               });
             });
             // console.log(this.state.name);
