@@ -6,6 +6,8 @@ const UserRouter = express.Router();
 const multer = require('multer')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
+const mongoClient = require('mongodb').MongoClient;
+const mongoUrl = "mongodb+srv://zwang772:Aa012345%3F@cluster0-bc7hw.gcp.mongodb.net/test?retryWrites=true&w=majority";
 const fs = require('fs');
 const vision = require('@google-cloud/vision');
 // Creates a client
@@ -31,13 +33,26 @@ var storage = multer.diskStorage({
   });
 const upload = multer({ storage: storage });
 
+// mongoClient.connect(mongoUrl, function(err, db) {
+//   if (err) throw err;
+//   var dbo = db.db("Cluster0");
+
+//   dbo.collection("database").insertMany(myobj, function(err, res) {
+//     if (err) throw err;
+//     console.log("Number of documents inserted: " + res.insertedCount);
+//     db.close();
+//   });
+//   db.close();
+// });
+
+
 
 const app = express()
 const port = 8080
 
 app.use(express.static('public'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '500mb'}));
+app.use(bodyParser.urlencoded({ extended: true ,limit: '500mb'}));
 
 app.post('/upload', upload.single('photo'), async (req, res) => {
 
@@ -90,4 +105,61 @@ app.post('/imageUpload', async (req, res) => {
     res.json(obj);
 });
 
+
+app.post('/confirmGarbage', async (req, res) => {
+  let category = req.body.category;
+  
+  let count = await addOne(category);
+  console.log(count);
+  let obj = {
+    Count : count,
+    Time : new Date()
+  }
+  res.json(obj);
+
+
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+
+function mongoInit(){
+  mongoClient.connect(mongoUrl, { useUnifiedTopology: true }, function(err, client) {
+  if(err) {
+      console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
+  }
+  console.log('Connected...');
+  const collection = client.db("Cluster0").collection("database");
+  var target = { address: /^/ };
+  var myobj = {$set: {count : 0}} ;
+    collection.updateMany(target , myobj, function(err, res) {
+    if (err) throw err;
+    //console.log("Number of documents inserted: " + res.insertedCount);
+    client.close();
+    });
+    // perform actions on the collection object
+
+  });
+}
+
+
+async function addOne(category){
+
+  var client = await mongoClient.connect(mongoUrl, {useUnifiedTopology: true })
+  .catch(err => { console.log(err); });
+
+  let collection = await client.db("Cluster0").collection("database");
+
+  collection.find({"name" : category}).toArray(function(err, result) {
+    if (err) throw err;
+    let newvalues = { $set: {Count: result[0].Count + 1 } };
+    let count = result[0].Count + 1;
+    
+    collection.updateOne({name : category}, newvalues , function(err, res) {
+    });
+  });
+  let result =  await  collection.findOne({"name" : category})
+  console.log(result.Count );
+  return result.Count ;
+}
+
