@@ -63,8 +63,8 @@ export default class MyCamera extends React.Component {
               </TouchableOpacity>
               <View>
                 <TouchableOpacity
-                  style={{ width: 60, height: 60, position: 'absolute', bottom: 35,
-                        borderRadius: 30, backgroundColor: "#fff"
+                  style={{ width: 60, height: 60, position: 'absolute', bottom: 35, 
+                          left: 120, borderRadius: 30, backgroundColor: "#fff"
                     }}
                   onPress={this.snapPhoto.bind(this)} />
               </View>
