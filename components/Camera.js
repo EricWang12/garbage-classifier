@@ -3,13 +3,7 @@ import { Text, View, TouchableOpacity, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 
-const isIPhone = new RegExp('\\biPhone\\b|\\biPod\\b', 'i').test(window.navigator.userAgent);
-let wrapProps;
-if (isIPhone) {
-  wrapProps = {
-    onTouchStart: e => e.preventDefault(),
-  };
-}
+const axios = require('axios');
 
 export default class MyCamera extends React.Component {
   state = {
@@ -74,6 +68,16 @@ export default class MyCamera extends React.Component {
         // photo.exif.Orientation = 1;
         console.log(photo);
         this.showPopUpModel();
+        axios.post('https://localhost:3000/imageUpload', {
+          photo
+        })
+        .then((res) => {
+          console.log(`statusCode: ${res.statusCode}`)
+          console.log(res)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
         
         return true;
       });
