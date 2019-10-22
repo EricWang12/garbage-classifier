@@ -15,18 +15,16 @@
         <div id="big-wrapper">
             <label id="photo-wrapper" for="file-upload">
                 <i class="fas fa-image icon"></i>
-                <div class="display">Select Image</div>
+                <div class="display">Upload Image</div>
             </label>
-            <div class="horizFlex">
+            <!-- <div class="horizFlex">
                 <label for="file-post" style="display: inline;">Upload</label>
                 <span>OR</span>
                 <label style="display: inline;">Login</label>
-            </div>
+            </div> -->
         </div>
 
-
-        <input id="file-upload" type="file" accept="image/*" name="photo">
-        <input id='file-post' type="submit" value="upload">
+        <input id="file-upload" type="file" accept="image/*" name="photo" onchange="this.form.submit();">
     </form>
 </body>
 
