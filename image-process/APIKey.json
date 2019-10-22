@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "garbage-classi",
+  "private_key_id": "01bb868d653ef6cbb4097b86060719b38f24d816",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCppTlSfAVd4dtI\nN8hY8GUTHSdXiK52+FNMFuzfPqsF9/R69MkCj+LZKzwBstOdkS3j1WokQFe7ezH+\nohAVOVWcWdYBgJ8GPpCbhUksRYuLJwGbhI9TnHc7YkfYz3PPGo0n/WuYL2M/dC74\ndHIfvb+0t8lsfWe8RbBJ2E2Mnb4XfaA5ZVDBRnvRTdIrOMrKNLLAOd9jqx5b5/Ms\nFoHdKHEWVWj4HwL36JSW1iReanos5lKfpg7ybgTJhI8xPAFbQOWYVoBSnWnZmekX\n+M5fIxXVTxaGccUcK7X1BRlsYeCeci9y+ze8xWjGRIv+b5UcKquErTurkjmTU5mk\nq3fznGE7AgMBAAECggEAO19Eew5FsJBBtvoy55GmxjQ/Vx7SdHe/a1NgrlcX8txP\nV5MBIKDr8zZy52NHNY+gYGsKHUrZiZd5rVTZzRvGTxSP1fHGdiCCarOQoupqBpbt\ntJiFsu0BO6rPW11rehGgUl0agWYgVY5bfAABCwPVKrHh0FLpcdZv9sA5j9uLMlvl\ngA1BVpPi807N1vGL+cvsQJu1/vfQRCm/QTZfdwTGGM+Ubwdq2JKEVbK9eiRvPbzm\nZrR06XpJxWY2lxNncOY91jjSUEV6hv4smNvqg7I0VYKQISpQ81j6rM4nJjoHWS+Y\nQJ9Fl/iN42dR6aNIOqBA2fKD/YvRrzUFCYdYeUbQRQKBgQDuPqfIBXxPGgjQJ5Up\nVrEVkNLUHVauXsIdwAyqqrJvRnhZhQAOWpgDlPHONRW9E7onQTM5UtJdpTzbNLIx\nhRYkH+oFFjKy1vsKhUMVb0azVi6xEv+ep4SAL3/93KZzj+1JocTT7R9nETH1GfRg\n3J9uJVjnq0d2OEtONLhE9FlbLQKBgQC2ScxYqIi5i98tMy0cOgpXRU/9Q+6qpDhr\nByI8tE19jkibf/VAvtmn0CDwsLTwU5gylWFX7onDo88HG03rn+1IU5y4TFRcdClm\n37d8v6iYob/5AuQQ86KvFHttADgDOptQ1wytiiVNYvqzaPOz0oPzoiL1AGC8rk3g\nc1sBHyhPBwKBgQCVVVKnrsCPeHsjtlvp0HwpT2DHMiieHalBKpsF8v7rftl7C0HQ\nvXphbF/w6BdbL91UM6se+EoCBsvRfwNexNPvCs4OKC7ZKKWsn4FAE0LWsGON/KGb\nWddU3fE1N7Rh5UpQCAUu7Yfse7u7rWwftsp8KQ7ED/k4IesZ9zO1jQ/hdQKBgQCE\nqhDeNUnMP8+cxbH+6P69pOQiHl6EMiAdRIPWSiJbTkHpaabECCG/z+kpQnFstmn9\n5lmB9Uit6XmyYlzDLxExoihcuLBs2N2I0Sho0dORwaZFQ6VX8PhlEzMAkTgyoWSH\n4PqJEhEz0OVDzQ4PwRXnKgjm5e+BYhmrUEja+CIN4QKBgFuccGGEqRHlEvr59435\npIzy8hXPgoX/JU9OjPip+rW8cXSMvb28aFScU53U8nSOKKws4HLktjVCH3dzgKBQ\n7ZKDqkbVjduxcyD1BQCHq9XqUJTFtKKUwsDeErua+Sqbv4S1AEAcOzsZAtMQg+0D\n7uJe5xGN9/+3R3mwrnzNGpdc\n-----END PRIVATE KEY-----\n",
+  "client_email": "madhack-garbage-classifier@garbage-classi.iam.gserviceaccount.com",
+  "client_id": "111580999747599121622",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/madhack-garbage-classifier%40garbage-classi.iam.gserviceaccount.com"
+}
