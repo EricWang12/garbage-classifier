@@ -2,6 +2,7 @@
 
 :root {
     --recyclable: #3EE084;
+    --recyclableHover: #3EE084cc;
     --compost: #FEBA02;
     --hazardous: #FA876E;
     --trash: #303030;
@@ -23,6 +24,9 @@
     align-items: center;
 }
 
+#photo-wrapper :hover {
+    background-color: var(--recyclableHover);
+}
 
 .display {
     color: white;
@@ -36,10 +40,16 @@
 }
 
 label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
     border: 0;
     padding: 10px 20px;
     background-color: var(--recyclable);
-    border-radius: 5px;
+    border-radius: 30px;
     font-family: 'nunito';
     font-size: 18px;
     font-weight: 400;
@@ -47,15 +57,9 @@ label {
 }
 
 #photo-wrapper {
-    width: 90%;
-    height: 75%;
-    border-color: var(--recyclable);
-    border-width: 9px;
-    border-style: solid;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 85%;
+    height: 70%;
+
 }
 
 .horizFlex {
@@ -70,6 +74,6 @@ label {
     color: white;
 }
 
-input{
-    /* display: none; */
+input {
+    display: none;
 }
