@@ -7,6 +7,16 @@ const options = [
     'Toss it'
 ]
 
+const styles = {
+    titleBox: {
+      background: '#333333'
+    },
+    titleText: {
+      fontSize: 25,
+      color: '#31e084'
+    }
+  }
+
 export default class Action extends React.Component {
     constructor(props) {
         super(props);
@@ -15,13 +25,14 @@ export default class Action extends React.Component {
         this.showActionSheet();
     }
     showActionSheet = () => {
-        this.ActionSheet.show()
+        this.ActionSheet.show();
       }
     render() {
         return (
             <ActionSheet
+            styles={styles}
             ref={o => this.ActionSheet = o}
-            title={<View><Text style={{color: '#000', fontSize: 18}}>We got the results for you!</Text><Text>Your item is {this.props.name}, and it is {this.props.category}.</Text></View>}
+            title={<View><Text>We got the results for you!</Text><Text style={{color: '#000', fontSize: 18}}>Your item is {this.props.name}, and it is {this.props.category}!</Text></View>}
             options={options}
             cancelButtonIndex={0}
             destructiveButtonIndex={4}

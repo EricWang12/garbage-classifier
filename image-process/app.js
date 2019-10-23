@@ -2,7 +2,7 @@ const {classify }= require('./classifier.js')
 
 const express = require('express')
 const UserRouter = express.Router();
-
+const mustache   = require('mustache-express');
 const multer = require('multer')
 const bodyParser = require('body-parser')
 const crypto = require('crypto')
@@ -33,19 +33,8 @@ var storage = multer.diskStorage({
   });
 const upload = multer({ storage: storage });
 
-// mongoClient.connect(mongoUrl, function(err, db) {
-//   if (err) throw err;
-//   var dbo = db.db("Cluster0");
 
-//   dbo.collection("database").insertMany(myobj, function(err, res) {
-//     if (err) throw err;
-//     console.log("Number of documents inserted: " + res.insertedCount);
-//     db.close();
-//   });
-//   db.close();
-// });
-
-
+//mongoInit();
 
 const app = express()
 const port = 8080
@@ -54,13 +43,19 @@ app.use(express.static('public'));
 app.use(bodyParser.json({limit: '500mb'}));
 app.use(bodyParser.urlencoded({ extended: true ,limit: '500mb'}));
 
+app.engine('html', mustache());
+app.set('view engine', 'html');
+app.set('views', __dirname + '/public');
+
+
 app.post('/upload', upload.single('photo'), async (req, res) => {
 
     let imageFile = fs.readFileSync(fileLocation + '/' + req.file.originalname);
     let encoded = Buffer.from(imageFile).toString('base64');
-    console.log(encoded);
+    // console.log(encoded);
 
-    let pic = new Buffer.from(encoded, 'base64');
+    //let pic = new Buffer.from(encoded, 'base64');
+    let pic = imageFile;
     let [labelResults] = await client.labelDetection(pic);
     let [objectResults] = await client.objectLocalization(pic);
     let objects = objectResults.localizedObjectAnnotations;
@@ -69,14 +64,26 @@ app.post('/upload', upload.single('photo'), async (req, res) => {
     //console.log(returnedLabels.map(a => a.description));
 
     let coords = new Array();
+    let content = fs.readFileSync(__dirname + '/public/upload.html').toString();
 
     //.get(0).map(v => `x: ${v.x}, y:${v.y}`);
     let vertices = objects[0].boundingPoly.normalizedVertices;
     vertices.forEach(v => coords.push([v.x,v.y]));
 
-    res.send(coords + '<br>' + returnedLabels.map(a => a.description) + '<br>' + classify(returnedLabels.map(a => a.description)));
-    //res.send(returnedLabels);
+    let view = {  
+      image:encoded, 
+      coordinates:coords, 
+      name: returnedLabels[0].description,
+      category: classify(returnedLabels.map(a => a.description))
+    };
 
+    res.render('upload.html', view);
+
+    res.sendFile(__dirname + '/public/upload.html');
+
+
+    //res.send('<img src="data:image/jpeg;base64,' + encoded + '" />' + '<br>' + coords + '<br>' + returnedLabels.map(a => a.description) + '<br>' + classify(returnedLabels.map(a => a.description)));
+    //res.send(returnedLabels);
 }
 );
 
@@ -92,8 +99,6 @@ app.post('/imageUpload', async (req, res) => {
     //console.log(returnedLabels.map(a => a.description));
 
     let coords = new Array();
-
-    //.get(0).map(v => `x: ${v.x}, y:${v.y}`);
     let vertices = objects[0].boundingPoly.normalizedVertices;
     vertices.forEach(v => coords.push([v.x,v.y]));
 
@@ -132,15 +137,17 @@ function mongoInit(){
       console.log('Error occurred while connecting to MongoDB Atlas...\n',err);
   }
   console.log('Connected...');
-  const collection = client.db("Cluster0").collection("database");
-  var target = { address: /^/ };
-  var myobj = {$set: {count : 0}} ;
-    collection.updateMany(target , myobj, function(err, res) {
-    if (err) throw err;
-    //console.log("Number of documents inserted: " + res.insertedCount);
-    client.close();
-    });
-    // perform actions on the collection object
+  //const collection = client.db("Cluster0").collection("database");
+  client.runCommand({ killAllSessions : []});
+  client.killAllSessions();
+  // var target = { address: /^/ };
+  // var myobj = {$set: {count : 0}} ;
+  //   collection.updateMany(target , myobj, function(err, res) {
+  //   if (err) throw err;
+  //   //console.log("Number of documents inserted: " + res.insertedCount);
+  client.close();
+  //   });
+  //   // perform actions on the collection object
 
   });
 }
@@ -162,6 +169,7 @@ async function addOne(category){
     });
   });
   var result =  await collection.find({},{ projection: { _id: 0 ,name: 1, Count : 1 } }).toArray();
+  client.close();
   return result ;
 }
 

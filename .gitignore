@@ -1,3 +1,4 @@
+image-process/APIKey.json
 image-process/node_modules/**/*
 node_modules/**/*
 .expo/*
