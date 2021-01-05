@@ -19,7 +19,7 @@
     "@react-navigation/web": "^1.0.0-alpha.9",
     "antd": "^3.24.2",
     "antd-mobile": "^2.3.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "base64-image-upload": "^1.1.4",
     "expo": "^35.0.0",
     "expo-asset": "^7.0.0",
